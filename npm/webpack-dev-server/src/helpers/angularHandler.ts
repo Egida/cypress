@@ -70,7 +70,12 @@ export async function getWebpackConfig (tmpDir: string): Promise<Configuration> 
           use: {
             loader: 'babel-loader',
             options: {
-              plugins: ['@angular/compiler-cli/linker/babel'],
+              plugins: [
+                [
+                  '@angular/compiler-cli/linker/babel',
+                  { linkerJitMode: true },
+                ],
+              ],
               compact: false,
               cacheDirectory: true,
             },
@@ -84,6 +89,7 @@ export async function getWebpackConfig (tmpDir: string): Promise<Configuration> 
     plugins: [
       new AngularWebpackPlugin({
         tsconfig: `${tmpDir}/tsconfig.cy.json`,
+        jitMode: true,
       }),
     ],
   }
